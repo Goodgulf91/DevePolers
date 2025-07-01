@@ -39,14 +39,18 @@ export default function Home() {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        setSubmitMessage('Message sent successfully!');
+        setSubmitMessage('✅ Message sent successfully! We\'ll get back to you soon.');
         setFormData({ name: '', email: '', message: '' });
       } else {
-        setSubmitMessage('Failed to send message. Please try again.');
+        // Display specific error message from server
+        setSubmitMessage(`❌ ${data.error || 'Failed to send message. Please try again.'}`);
       }
-    } catch {
-      setSubmitMessage('Failed to send message. Please try again.');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitMessage('❌ Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
