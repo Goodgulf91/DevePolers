@@ -1,14 +1,55 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from "next/image";
+import React, { useState, useEffect } from 'react';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitMessage('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitMessage('Failed to send message. Please try again.');
+      }
+    } catch {
+      setSubmitMessage('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (!mounted) return null;
 
@@ -27,16 +68,16 @@ export default function Home() {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <a href="#home" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                  Start
+                  Home
                 </a>
                 <a href="#about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                  O nas
+                  About Us
                 </a>
                 <a href="#services" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                  Usługi
+                  Services
                 </a>
                 <a href="#contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                  Kontakt
+                  Contact
                 </a>
               </div>
             </div>
@@ -55,7 +96,7 @@ export default function Home() {
                 LOGO
               </div>
               <div className="text-gray-300 text-sm mt-2">
-                (Miejsce na Twoje logo)
+                (Place for Your logo)
               </div>
             </div>
           </div>
@@ -69,15 +110,15 @@ export default function Home() {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Tworzymy gry i sprzedajemy wysokiej jakości assety dla developerów
+            We create games and sell high-quality assets for developers
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Zobacz nasze assety
+              View Our Assets
             </button>
             <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105">
-              Nasze gry
+              Our Games
             </button>
           </div>
         </div>
@@ -87,29 +128,29 @@ export default function Home() {
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            O <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">nas</span>
+            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Us</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            DevePolers Games to zespół pasjonatów, którzy łączą kreatywność z technologią, 
-            aby tworzyć wyjątkowe doświadczenia w świecie gier.
+            DevePolers Games is a team of enthusiasts who combine creativity with technology 
+            to create unique experiences in the gaming world.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <div className="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-2xl font-bold text-white mb-4">Nasza misja</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
               <p className="text-gray-300">
-                Dostarczamy najwyższej jakości assety i tworzymy gry, które inspirują i bawią. 
-                Naszym celem jest wspieranie społeczności deweloperów gier poprzez profesjonalne rozwiązania.
+                We deliver the highest quality assets and create games that inspire and entertain. 
+                Our goal is to support the game developer community through professional solutions.
               </p>
             </div>
             
             <div className="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-2xl font-bold text-white mb-4">Doświadczenie</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">Experience</h3>
               <p className="text-gray-300">
-                Wieloletnie doświadczenie w branży gier pozwala nam rozumieć potrzeby deweloperów 
-                i dostarczać produkty, które rzeczywiście ułatwiają tworzenie gier.
+                Years of experience in the gaming industry allow us to understand developers&apos; needs 
+                and deliver products that truly facilitate game creation.
               </p>
             </div>
           </div>
@@ -118,7 +159,7 @@ export default function Home() {
             <div className="bg-gradient-to-br from-blue-600/20 to-purple-600/20 p-8 rounded-lg border border-gray-700">
               <div className="text-center">
                 <div className="text-6xl font-bold text-white mb-4">100+</div>
-                <p className="text-gray-300 text-lg">Zadowolonych klientów</p>
+                <p className="text-gray-300 text-lg">Satisfied Clients</p>
               </div>
             </div>
           </div>
@@ -130,10 +171,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Nasze <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">usługi</span>
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Services</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Oferujemy kompleksowe rozwiązania dla branży gier
+              We offer comprehensive solutions for the gaming industry
             </p>
           </div>
 
@@ -144,34 +185,34 @@ export default function Home() {
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-400 rounded-lg mx-auto mb-4 flex items-center justify-center">
                   <span className="text-2xl font-bold text-white">🎨</span>
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Sprzedaż Assetów</h3>
+                <h3 className="text-3xl font-bold text-white mb-4">Asset Sales</h3>
               </div>
               
               <ul className="space-y-3 text-gray-300 mb-6">
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Grafiki 2D i 3D
+                  2D and 3D Graphics
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Animacje postaci
+                  Character Animations
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Efekty specjalne
+                  Special Effects
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Muzyka i dźwięki
+                  Music and Sounds
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Gotowe skrypty
+                  Ready-made Scripts
                 </li>
               </ul>
               
               <button className="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-500 transition-all duration-300">
-                Przeglądaj Assety
+                Browse Assets
               </button>
             </div>
 
@@ -181,34 +222,34 @@ export default function Home() {
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg mx-auto mb-4 flex items-center justify-center">
                   <span className="text-2xl font-bold text-white">🎮</span>
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Tworzenie Gier</h3>
+                <h3 className="text-3xl font-bold text-white mb-4">Game Development</h3>
               </div>
               
               <ul className="space-y-3 text-gray-300 mb-6">
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Gry mobilne
+                  Mobile Games
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Gry PC/Console
+                  PC/Console Games
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Gry przeglądarkowe
+                  Browser Games
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Prototypy i MVP
+                  Prototypes and MVP
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Konsultacje techniczne
+                  Technical Consulting
                 </li>
               </ul>
               
               <button className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-500 transition-all duration-300">
-                Rozpocznij Projekt
+                Start Project
               </button>
             </div>
           </div>
@@ -219,10 +260,10 @@ export default function Home() {
       <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Kontakt</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Contact</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Gotowy do rozpoczęcia swojego projektu? Skontaktuj się z nami!
+            Ready to start your project? Get in touch with us!
           </p>
         </div>
 
@@ -230,37 +271,62 @@ export default function Home() {
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-lg border border-gray-700">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-6">Napisz do nas</h3>
-                <form className="space-y-4">
+                <h3 className="text-2xl font-bold text-white mb-6">Write to Us</h3>
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <input 
                       type="text" 
-                      placeholder="Twoje imię"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your name"
+                      required
                       className="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600 focus:border-blue-400 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
                     <input 
                       type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       placeholder="Email"
+                      required
                       className="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600 focus:border-blue-400 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
                     <textarea 
-                      placeholder="Opisz swój projekt..."
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Describe your project..."
                       rows={4}
+                      required
                       className="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600 focus:border-blue-400 focus:outline-none transition-colors resize-none"
                     ></textarea>
                   </div>
-                  <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
-                    Wyślij wiadomość
+                  {submitMessage && (
+                    <div className={`p-3 rounded-lg text-center ${
+                      submitMessage.includes('successfully') 
+                        ? 'bg-green-600/20 border border-green-600 text-green-300' 
+                        : 'bg-red-600/20 border border-red-600 text-red-300'
+                    }`}>
+                      {submitMessage}
+                    </div>
+                  )}
+                  <button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               </div>
               
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-white mb-6">Informacje kontaktowe</h3>
+                <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
                 
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
@@ -269,7 +335,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-gray-300">Email</p>
-                      <p className="text-white font-semibold">kontakt@devepolers.com</p>
+                      <p className="text-white font-semibold">devepolers@gmail.com</p>
                     </div>
                   </div>
                   
@@ -288,7 +354,7 @@ export default function Home() {
                       <span className="text-white font-bold">⏰</span>
                     </div>
                     <div>
-                      <p className="text-gray-300">Czas odpowiedzi</p>
+                      <p className="text-gray-300">Response Time</p>
                       <p className="text-white font-semibold">24h</p>
                     </div>
                   </div>
@@ -307,14 +373,14 @@ export default function Home() {
               <span className="text-white font-bold text-lg">DevePolers Games</span>
             </div>
             <p className="text-gray-400 mb-4">
-              © 2024 DevePolers Games. Wszystkie prawa zastrzeżone.
+              © 2024 DevePolers Games. All rights reserved.
             </p>
             <div className="flex justify-center space-x-6">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Polityka prywatności
+                Privacy Policy
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Regulamin
+                Terms of Service
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 Cookies

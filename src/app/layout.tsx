@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevePolers Games - Assety i Tworzenie Gier",
-  description: "DevePolers Games - specjalizujemy się w sprzedaży assetów i tworzeniu gier. Profesjonalne rozwiązania dla Twojego projektu.",
-  keywords: "gry, assety, game development, gamedev, unity, unreal, assets",
+  title: "DevePolers Games - Assets and Game Development",
+  description: "DevePolers Games - we specialize in selling assets and creating games. Professional solutions for your project.",
+  keywords: "games, assets, game development, gamedev, unity, unreal, assets",
   authors: [{ name: "DevePolers Games" }],
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
