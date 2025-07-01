@@ -49,14 +49,16 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           <div className="mb-8">
-            {/* Logo placeholder - will be replaced with actual logo */}
-            <div className="inline-block bg-black p-8 rounded-lg border-2 border-gray-600 shadow-2xl">
-              <div className="text-white text-3xl font-bold">
-                LOGO
-              </div>
-              <div className="text-gray-300 text-sm mt-2">
-                (Miejsce na Twoje logo)
-              </div>
+            {/* Logo */}
+            <div className="inline-block bg-[#0d0c0a] p-8 rounded-lg border-2 border-gray-600 shadow-2xl">
+              <Image
+                src="/Logo.png"
+                alt="DevePolers Games Logo"
+                width={200}
+                height={200}
+                className="w-auto h-20"
+                priority
+              />
             </div>
           </div>
           
