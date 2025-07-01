@@ -19,9 +19,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              {/* Placeholder for logo - black background with white text as specified */}
-              <div className="bg-black px-4 py-2 rounded-md border border-gray-600">
-                <span className="text-white font-bold text-lg">DevePolers Games</span>
+              {/* Logo */}
+              <div className="bg-[#0d0c0a] px-1 py-1 rounded-md border border-gray-600">
+                <Image
+                  src="/Logo.png"
+                  alt="DevePolers Games Logo"
+                  width={120}
+                  height={40}
+                  className="w-auto h-11"
+                  priority
+                />
               </div>
             </div>
             <div className="hidden md:block">
