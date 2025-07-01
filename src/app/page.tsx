@@ -359,7 +359,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-gray-300">Website</p>
-                      <p className="text-white font-semibold">www.devepolers.com</p>
+                      <p className="text-white font-semibold">www.devepolers.wegenerate.dev</p>
                     </div>
                   </div>
                   
