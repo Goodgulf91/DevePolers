@@ -128,10 +128,10 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer" onClick={() => window.open('https://assetstore.unity.com/publishers/119240', '_blank')}>
               View Our Assets
             </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105">
+            <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 cursor-pointer" onClick={() => window.open('https://play.google.com/store/apps/developer?id=DevePolers&hl=pl', '_blank')}>
               Our Games
             </button>
           </div>
@@ -205,27 +205,15 @@ export default function Home() {
               <ul className="space-y-3 text-gray-300 mb-6">
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  2D and 3D Graphics
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Character Animations
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Special Effects
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                  Music and Sounds
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
                   Ready-made Scripts
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                  Tools
                 </li>
               </ul>
               
-              <button className="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-500 transition-all duration-300">
+              <button className="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-500 transition-all duration-300 cursor-pointer" onClick={() => window.open('https://assetstore.unity.com/publishers/119240', '_blank')}>
                 Browse Assets
               </button>
             </div>
@@ -262,7 +250,7 @@ export default function Home() {
                 </li>
               </ul>
               
-              <button className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-500 transition-all duration-300">
+              <button className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-500 transition-all duration-300" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
                 Start Project
               </button>
             </div>
@@ -332,7 +320,7 @@ export default function Home() {
                   <button 
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>

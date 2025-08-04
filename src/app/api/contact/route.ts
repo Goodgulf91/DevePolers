@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 // Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend("re_Gb9xwu6V_B3KReVpZ7AzRMuza41vLjrmi");
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,18 +25,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if API key is configured
-    if (!process.env.RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is not configured');
-      return NextResponse.json(
-        { error: 'Email service is not configured' },
-        { status: 500 }
-      );
-    }
-
     // Send email using Resend
     const result = await resend.emails.send({
-      from: process.env.FROM_EMAIL || 'devepolers@gmail.com',
+      from: process.env.FROM_EMAIL || 'artur.szady@futbolkolektyw.pl',
       to: process.env.TO_EMAIL || 'devepolers@gmail.com',
       subject: `New Contact Form Submission from ${name}`,
       html: `
